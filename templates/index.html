@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>3(要)q(有)v(分)p(隔)n(线)申(啊)请</title>
+    <meta charset="utf-8"/>
+    <script src="{{url_for('static', filename='jquery-1.7.2.min.js')}}"></script>
+    <style type="text/css">
+        .myButton {
+            -moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
+            -webkit-box-shadow: 0px 0px 0px 2px #9fb4f2;
+            box-shadow: 0px 0px 0px 2px #9fb4f2;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7892c2), color-stop(1, #61a8ff));
+            background: -moz-linear-gradient(top, #7892c2 5%, #61a8ff 100%);
+            background: -webkit-linear-gradient(top, #7892c2 5%, #61a8ff 100%);
+            background: -o-linear-gradient(top, #7892c2 5%, #61a8ff 100%);
+            background: -ms-linear-gradient(top, #7892c2 5%, #61a8ff 100%);
+            background: linear-gradient(to bottom, #7892c2 5%, #61a8ff 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7892c2', endColorstr='#61a8ff', GradientType=0);
+            background-color: #7892c2;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            border: 1px solid #4e6096;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 28px;
+            padding: 12px 37px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #283966;
+        }
+
+        .myButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #61a8ff), color-stop(1, #7892c2));
+            background: -moz-linear-gradient(top, #61a8ff 5%, #7892c2 100%);
+            background: -webkit-linear-gradient(top, #61a8ff 5%, #7892c2 100%);
+            background: -o-linear-gradient(top, #61a8ff 5%, #7892c2 100%);
+            background: -ms-linear-gradient(top, #61a8ff 5%, #7892c2 100%);
+            background: linear-gradient(to bottom, #61a8ff 5%, #7892c2 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#61a8ff', endColorstr='#7892c2', GradientType=0);
+            background-color: #61a8ff;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+
+    </style>
+    <script type="text/javascript">
+        var flag = false;
+        $(function () {
+            $('#apply').click(function () {
+                if (flag) {
+                    $('#ret_msg').html('<b style="color:red">账号maybe已在路上了，请稍等啊</b>').css('display', 'block');
+                    return false;
+                }
+                if (confirm('确定要申请个账户玩玩？')) {
+                    flag = true;
+                    $('#ret_msg').html('<b style="color:red">答应我，请等待返回，验证邮箱有点慢啊，大约需要20秒</b>').css('display', 'block');
+                    $.get( '/apply',function(data,txtStatus){
+                         $('#ret_msg').html(data);
+                            flag = false;
+                    });
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+<p>
+    写在最前面!!!!!!!!!：<br>
+    首先感谢byr@icyfox的共享，他当时做了个申请器在http://3qmaker.sturgeon.mopaas.com/
+    为大家提供账号和密码，他当时用的是临时邮箱，估计是访问人太多了，人家看出来了，所以人家不让用临时邮箱了。但是本着折腾的精神（可能对你来说，还不如去买个vpn呢），然后我淘宝1元600个邮箱账号继续下去。如果邮箱账号用完了，我可能还会续费下去。<br>
+</p>
+<br>
+
+<p>
+    问题：为什么网页这么烂？<br>
+    回答：因为这个应用不会长久，人家做一层屏蔽(比如验证码)，咱就挂了，注重功能吧，给你最需要的账号和密码就OK啦<br>
+</p>
+
+<p>
+    问题：怎么用？<br>
+    回答：不需要安装软件，用windows的PPTP就可以，设置方法请参考<a target="_blank" href="http://www.my3qvpn.org/misc/help">vpn设置方法</a><br>
+</p>
+
+<p style="color:red "><b>
+    问题：关于申请账号？<br>
+    回答：希望大家各取所取，不要屯账号，没用的，一个账号只有100m流量，有效期为2天，过期作废，所以大家请用完了再申请哈。<br></b>
+</p>
+
+<div style="margin: 0 auto;text-align:center;">
+    <br>
+
+    <div>
+        已被申请过{{used}}个账号，还剩余<b style="color:red ">{{unused}}</b>个账号
+    </div>
+    <br>
+
+    <div>
+        <a id="apply" href="javascript:void(0)" class="myButton">少废话！赶紧申请个账号</a>
+        <a href="http://www.byr.cn" target="_blank" class="myButton">界面丑爆了，出现bug，去喷之</a>
+    </div>
+    <br>
+
+    <div id="ret_msg" style="display:none">
+        <div>
+        </div>
+</body>
+</html>
